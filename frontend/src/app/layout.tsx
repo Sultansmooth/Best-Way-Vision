@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   description: "AI-powered warehouse monitoring system",
 };
 
+// Note: Removed force-dynamic to fix Vercel 404 issue
+// Client-side auth with localStorage works fine without it
+
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -20,6 +20,9 @@ COPY --from=deps /app/node_modules ./node_modules
 # Copy source code
 COPY . .
 
+# Set environment variable for Docker build
+ENV DOCKER_BUILD=true
+
 # Build the application
 RUN npm run build
 
