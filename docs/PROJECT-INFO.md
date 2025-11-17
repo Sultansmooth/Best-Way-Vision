@@ -365,17 +365,50 @@ services:
 - Responsive design with proper spacing
 - Color-coded event type badges for visual clarity
 
+**Status:** Frontend is complete and deployed to GitHub.
+
+#### Session 7: Enhanced Reports with Clickable Events
+**Feature: Interactive Event Logs**
+- Converted reports to Excel-style detailed event logs
+- Each event row shows: Event ID, timestamp, location, camera ID, category-specific data
+- Clickable table rows to view event snapshot images
+- Modal popup displays full event details and captured image
+- Three separate tables for each category (Pallet, Trailer, Security)
+
+**Event Details Included:**
+- **Pallet Scans**: Event ID, date/time, location, camera, carton count, details
+- **Trailer Activity**: Event ID, date/time, location, camera, trailer number, activity type
+- **Security Alerts**: Event ID, date/time, location, camera, alert type, description
+
+**Image Modal Features:**
+- Full-screen modal with dark overlay
+- Event metadata display (type, location, camera, time)
+- Large event snapshot image
+- Category-specific badges (carton count, trailer number, alert type)
+- Click outside or X button to close
+
+**Template Data:**
+- 290 realistic sample events across the week
+- Sequential event IDs (EVT-00001, EVT-00002, etc.)
+- Placeholder images with colored backgrounds per category
+- Realistic timestamps during business hours (8 AM - 6 PM weekdays)
+- Security events spread across 24 hours
+
+**Files Modified:**
+- `/frontend/src/app/reports/page.tsx` - Complete rewrite for Excel-style reports with clickable rows
+
+**Deployment:**
+- ✅ Code committed to Git
+- ✅ Pushed to GitHub: https://github.com/Sultansmooth/Best-Way-Vision
+- ✅ Ready for Vercel deployment
+
 **Next Steps:**
-1. ✅ Test frontend locally (`npm run dev` on port 3000)
-2. ✅ Docker setup complete (run on port 3001)
-3. ✅ Camera feeds and zone configuration complete
-4. ✅ Authentication system implemented
-5. ✅ Data persistence verified and documented
-6. ✅ Weekly reports and PDF export implemented
-7. 🚧 Begin Python backend development
-8. 🚧 Set up local SQL database (PostgreSQL/SQLite)
-9. 🚧 Implement snapshot image storage system
-10. 🚧 Connect frontend to real backend API (replace localStorage with fetch)
-11. 🚧 Implement RTSP stream processing
-12. 🚧 Integrate AI/CV models for detection
-13. 🚧 Replace client-side auth with proper backend authentication
+1. ✅ Frontend complete and deployed to GitHub
+2. ⏳ Deploy to Vercel (user will handle)
+3. 🚧 Begin Python backend development
+4. 🚧 Set up local SQL database (PostgreSQL/SQLite)
+5. 🚧 Implement snapshot image storage system
+6. 🚧 Connect frontend to real backend API (replace localStorage with fetch)
+7. 🚧 Implement RTSP stream processing
+8. 🚧 Integrate AI/CV models for detection
+9. 🚧 Replace client-side auth with proper backend authentication
