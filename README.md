@@ -64,3 +64,4 @@ See `/docs/` folder for complete documentation:
 - [Project Overview](docs/Project%20Overview.md) - Detailed project requirements
 - [Environment Variables](docs/env.md) - Configuration template
 # Vercel deployment with frontend root directory
+# Test
