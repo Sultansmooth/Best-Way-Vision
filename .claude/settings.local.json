@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File scripts/check-duplicates.ps1)",
+      "Bash(if [ -f \"package.json\" ])",
+      "Bash(then cat package.json)",
+      "Bash(fi)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npm run dev:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(docker-compose logs:*)",
+      "Bash(docker-compose ps:*)",
+      "Bash(npm install:*)",
+      "Bash(taskkill:*)",
+      "Bash(nul)",
+      "Bash(docker-compose down:*)",
+      "Bash(powershell:*)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File fix-text-colors.ps1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File fix-remaining-grey-text.ps1)",
+      "Bash(node generate-sample-report.js:*)",
+      "Bash(del generate-sample-report.js)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: Best Way Vision - AI Warehouse Monitoring System\n\nComplete Next.js frontend with Docker deployment:\n- Dashboard with 7-day trend charts for event tracking\n- Events listing with search, filters, and Excel export\n- Camera feeds management with zone drawing capabilities\n- Weekly reports with Excel-style detailed event logs\n- Clickable event rows to view snapshot images\n- Authentication system (admin/g42004200)\n- Data persistence via localStorage (ready for backend)\n- Professional UI with skeleton loaders and dark text\n- Fully responsive design\n\nTech stack:\n- Next.js 14 with TypeScript and App Router\n- Tailwind CSS for styling\n- Docker multi-stage production build\n- jsPDF for PDF export\n- XLSX for Excel export\n- Recharts for data visualization\n\nReady for backend integration and Vercel deployment.\n\n🤖 Generated with Claude Code\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

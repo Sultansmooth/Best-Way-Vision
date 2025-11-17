@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Populate Sample Weekly Report Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #22c55e;
+        }
+        button {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #16a34a;
+        }
+        .secondary {
+            background: #6b7280;
+        }
+        .secondary:hover {
+            background: #4b5563;
+        }
+        .info {
+            background: #e0f2fe;
+            border-left: 4px solid #0ea5e9;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .success {
+            background: #dcfce7;
+            border-left: 4px solid #22c55e;
+            padding: 15px;
+            margin: 20px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Best Way Vision - Sample Data Generator</h1>
+
+        <div class="info">
+            <strong>Instructions:</strong><br>
+            This tool will populate your localStorage with sample event data for the current week (Monday-Sunday).
+            After populating, navigate to the Reports page to see the weekly spreadsheet and export to PDF.
+        </div>
+
+        <div class="success" id="successMessage">
+            ✓ Sample data populated successfully! You can now:
+            <ul>
+                <li>Close this tab</li>
+                <li>Navigate to <a href="http://localhost:3001/reports" target="_blank">Reports Page</a></li>
+                <li>Click "Export to PDF" to download the template</li>
+            </ul>
+        </div>
+
+        <button onclick="populateSampleData()">Populate Sample Data</button>
+        <button class="secondary" onclick="clearData()">Clear All Data</button>
+    </div>
+
+    <script>
+        function getWeekDates() {
+            const now = new Date();
+            const dayOfWeek = now.getDay();
+            const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+
+            const weekStart = new Date(now);
+            weekStart.setDate(now.getDate() + mondayOffset);
+            weekStart.setHours(0, 0, 0, 0);
+
+            return weekStart;
+        }
+
+        function generateSampleEvents() {
+            const events = [];
+            const weekStart = getWeekDates();
+
+            // Sample data for each day of the week
+            const dailyData = [
+                { pallets: 18, trailers: 12, security: 15 }, // Monday
+                { pallets: 22, trailers: 15, security: 15 }, // Tuesday
+                { pallets: 20, trailers: 13, security: 15 }, // Wednesday
+                { pallets: 21, trailers: 14, security: 15 }, // Thursday
+                { pallets: 24, trailers: 16, security: 15 }, // Friday
+                { pallets: 10, trailers: 8, security: 10 },  // Saturday
+                { pallets: 5, trailers: 3, security: 4 }     // Sunday
+            ];
+
+            let eventId = 1;
+
+            dailyData.forEach((day, dayIndex) => {
+                const currentDay = new Date(weekStart);
+                currentDay.setDate(weekStart.getDate() + dayIndex);
+
+                // Generate pallet events
+                for (let i = 0; i < day.pallets; i++) {
+                    const eventTime = new Date(currentDay);
+                    eventTime.setHours(8 + Math.floor(Math.random() * 10));
+                    eventTime.setMinutes(Math.floor(Math.random() * 60));
+
+                    events.push({
+                        id: `event-${eventId++}`,
+                        type: 'pallet',
+                        timestamp: eventTime.toISOString(),
+                        location: ['Dock 1', 'Dock 2', 'Dock 3'][Math.floor(Math.random() * 3)],
+                        cameraId: 'CAM-001',
+                        cartonCount: 10 + Math.floor(Math.random() * 90),
+                        zone: 'Scan Zone A',
+                        imageUrl: '/placeholder-pallet.jpg',
+                        confidence: 0.85 + Math.random() * 0.14
+                    });
+                }
+
+                // Generate trailer events
+                for (let i = 0; i < day.trailers; i++) {
+                    const eventTime = new Date(currentDay);
+                    eventTime.setHours(8 + Math.floor(Math.random() * 10));
+                    eventTime.setMinutes(Math.floor(Math.random() * 60));
+
+                    events.push({
+                        id: `event-${eventId++}`,
+                        type: 'trailer',
+                        timestamp: eventTime.toISOString(),
+                        location: ['Dock 1', 'Dock 2', 'Dock 3'][Math.floor(Math.random() * 3)],
+                        cameraId: 'CAM-002',
+                        trailerName: `Trailer-${Math.floor(Math.random() * 100)}`,
+                        trailerNumber: `TRL${Math.floor(Math.random() * 10000)}`,
+                        direction: Math.random() > 0.5 ? 'arrival' : 'departure',
+                        dockNumber: `${Math.floor(Math.random() * 10) + 1}`,
+                        imageUrl: '/placeholder-trailer.jpg',
+                        confidence: 0.85 + Math.random() * 0.14
+                    });
+                }
+
+                // Generate security events
+                for (let i = 0; i < day.security; i++) {
+                    const eventTime = new Date(currentDay);
+                    eventTime.setHours(Math.floor(Math.random() * 24));
+                    eventTime.setMinutes(Math.floor(Math.random() * 60));
+
+                    const alertTypes = ['unauthorized_personnel', 'suspicious_activity', 'restricted_area', 'after_hours'];
+                    const severities = ['low', 'medium', 'high'];
+
+                    events.push({
+                        id: `event-${eventId++}`,
+                        type: 'security',
+                        timestamp: eventTime.toISOString(),
+                        location: ['Warehouse A', 'Warehouse B', 'Loading Dock'][Math.floor(Math.random() * 3)],
+                        cameraId: 'CAM-003',
+                        alertType: alertTypes[Math.floor(Math.random() * alertTypes.length)],
+                        severity: severities[Math.floor(Math.random() * severities.length)],
+                        description: 'Security alert detected in monitored zone',
+                        imageUrl: '/placeholder-security.jpg',
+                        confidence: 0.85 + Math.random() * 0.14
+                    });
+                }
+            });
+
+            return events;
+        }
+
+        function populateSampleData() {
+            const events = generateSampleEvents();
+
+            // Convert ISO strings back to Date objects for storage
+            const eventsWithDates = events.map(event => ({
+                ...event,
+                timestamp: event.timestamp // Store as ISO string, will be parsed on load
+            }));
+
+            localStorage.setItem('bw-vision-events', JSON.stringify(eventsWithDates));
+
+            document.getElementById('successMessage').style.display = 'block';
+
+            alert(`✓ Successfully populated ${events.length} sample events for the current week!`);
+        }
+
+        function clearData() {
+            if (confirm('Are you sure you want to clear all event data?')) {
+                localStorage.removeItem('bw-vision-events');
+                document.getElementById('successMessage').style.display = 'none';
+                alert('✓ All event data cleared!');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+services:
+  # Frontend - Next.js Application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: bestway-vision-frontend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      # Backend API URL (uncomment when backend is ready)
+      # - NEXT_PUBLIC_API_URL=http://backend:8000
+    restart: unless-stopped
+    networks:
+      - bestway-network
+
+  # Backend - Python AI/CV Service (placeholder for future)
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   container_name: bestway-vision-backend
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - DATABASE_URL=postgresql://user:password@db:5432/bestway_vision
+  #   volumes:
+  #     - ./backend:/app
+  #     - snapshots:/app/snapshots
+  #   restart: unless-stopped
+  #   networks:
+  #     - bestway-network
+  #   depends_on:
+  #     - db
+
+  # Database - PostgreSQL (placeholder for future)
+  # db:
+  #   image: postgres:15-alpine
+  #   container_name: bestway-vision-db
+  #   environment:
+  #     - POSTGRES_USER=bestway
+  #     - POSTGRES_PASSWORD=bestway_secure_password
+  #     - POSTGRES_DB=bestway_vision
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   restart: unless-stopped
+  #   networks:
+  #     - bestway-network
+
+  # Redis - Caching/Job Queue (placeholder for future)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: bestway-vision-redis
+  #   ports:
+  #     - "6379:6379"
+  #   restart: unless-stopped
+  #   networks:
+  #     - bestway-network
+
+networks:
+  bestway-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  snapshots:
